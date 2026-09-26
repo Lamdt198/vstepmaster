@@ -1,0 +1,91 @@
+<mxfile host="app.diagrams.net" modified="2026-09-10T16:00:00.000Z" agent="5.0" version="21.6.8" type="device">
+  <diagram id="Sequence_UC02_Listening" name="Sequence_UC02_Listening">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;Biểu đồ Tuần tự: Luyện tập Kỹ năng Nghe &amp;amp; Chấm điểm Trắc nghiệm (UC-02)&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontColor=#1e293b;" vertex="1" parent="1">
+          <mxGeometry x="250" y="15" width="550" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Lifelines -->
+        <mxCell id="ll_cand" value="Học viên&#xa;(Candidate)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;fillColor=#eff6ff;strokeColor=#2563eb;fontStyle=1;size=40;" vertex="1" parent="1">
+          <mxGeometry x="50" y="60" width="100" height="740" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_ui" value="ListeningUI&#xa;(Presentation)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;fillColor=#f0f9ff;strokeColor=#0284c7;fontStyle=1;size=40;" vertex="1" parent="1">
+          <mxGeometry x="230" y="60" width="120" height="740" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_audio" value="AudioPlayer&#xa;(HTML5 Audio)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;fillColor=#f8fafc;strokeColor=#64748b;fontStyle=1;size=40;" vertex="1" parent="1">
+          <mxGeometry x="420" y="60" width="110" height="740" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_service" value="ExamService&#xa;(Application)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;fillColor=#f0fdf4;strokeColor=#16a34a;fontStyle=1;size=40;" vertex="1" parent="1">
+          <mxGeometry x="600" y="60" width="120" height="740" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_db" value="Cơ sở dữ liệu&#xa;(Database)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;fillColor=#fef3c7;strokeColor=#d97706;fontStyle=1;size=40;" vertex="1" parent="1">
+          <mxGeometry x="790" y="60" width="110" height="740" as="geometry" />
+        </mxCell>
+
+        <!-- Messages -->
+        <mxCell id="m1" value="1: selectListeningExam(examId)" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;strokeWidth=1.5;strokeColor=#2563eb;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="100" y="125" as="sourcePoint"/><mxPoint x="290" y="125" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m2" value="2: loadExamDetails(examId)" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;strokeWidth=1.5;strokeColor=#16a34a;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="290" y="160" as="sourcePoint"/><mxPoint x="660" y="160" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m3" value="3: queryExamWithAudio(examId)" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;strokeWidth=1.5;strokeColor=#d97706;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="660" y="195" as="sourcePoint"/><mxPoint x="845" y="195" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m4" value="4: return ExamDataDTO (35 questions &amp;amp; Audio URLs)" style="edgeStyle=straightEdgeStyle;dashed=1;html=1;endArrow=open;strokeWidth=1.5;strokeColor=#d97706;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="845" y="230" as="sourcePoint"/><mxPoint x="660" y="230" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m5" value="5: return ExamDTO" style="edgeStyle=straightEdgeStyle;dashed=1;html=1;endArrow=open;strokeWidth=1.5;strokeColor=#16a34a;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="660" y="260" as="sourcePoint"/><mxPoint x="290" y="260" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m6" value="6: initAudioStream(part1_url)" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;strokeWidth=1.5;strokeColor=#64748b;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="290" y="295" as="sourcePoint"/><mxPoint x="475" y="295" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m7" value="7: playAudioStream()" style="edgeStyle=straightEdgeStyle;dashed=1;html=1;endArrow=open;strokeWidth=1.5;strokeColor=#64748b;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="475" y="325" as="sourcePoint"/><mxPoint x="100" y="325" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Loop Doing Exam -->
+        <mxCell id="f_loop" value="loop [Làm bài 35 câu trắc nghiệm]" style="shape=umlFrame;whiteSpace=wrap;html=1;width=220;height=22;fillColor=none;strokeColor=#64748b;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="355" width="890" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="m8" value="8: selectAnswer(questionId, choice)" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;strokeWidth=1.5;strokeColor=#2563eb;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="100" y="385" as="sourcePoint"/><mxPoint x="290" y="385" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m9" value="9: autoSaveDraft(answers) vào LocalStorage" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="290" y="415" as="sourcePoint"/><mxPoint x="290" y="445" as="targetPoint"/><Array as="points"><mxPoint x="330" y="415"/><mxPoint x="330" y="445"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- Submission & Grading -->
+        <mxCell id="m10" value="10: clickSubmitExam()" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;strokeWidth=1.5;strokeColor=#2563eb;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="100" y="490" as="sourcePoint"/><mxPoint x="290" y="490" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m11" value="11: gradeObjectiveExam(answers, examId)" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;strokeWidth=1.5;strokeColor=#16a34a;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="290" y="525" as="sourcePoint"/><mxPoint x="660" y="525" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m12" value="12: queryAnswerKeys(examId)" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;strokeWidth=1.5;strokeColor=#d97706;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="660" y="560" as="sourcePoint"/><mxPoint x="845" y="560" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m13" value="13: return AnswerKeyList" style="edgeStyle=straightEdgeStyle;dashed=1;html=1;endArrow=open;strokeWidth=1.5;strokeColor=#d97706;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="845" y="595" as="sourcePoint"/><mxPoint x="660" y="595" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m14" value="14: computeScore(35) &amp;amp; convertVstepScale10()" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="660" y="625" as="sourcePoint"/><mxPoint x="660" y="655" as="targetPoint"/><Array as="points"><mxPoint x="700" y="625"/><mxPoint x="700" y="655"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="m15" value="15: saveSubmission(submissionRecord)" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;strokeWidth=1.5;strokeColor=#d97706;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="660" y="685" as="sourcePoint"/><mxPoint x="845" y="685" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m16" value="16: return ScoreReportDTO (score, correctCount, transcript)" style="edgeStyle=straightEdgeStyle;dashed=1;html=1;endArrow=open;strokeWidth=1.5;strokeColor=#16a34a;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="660" y="720" as="sourcePoint"/><mxPoint x="290" y="720" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m17" value="17: renderScoreCardAndTranscript()" style="edgeStyle=straightEdgeStyle;dashed=1;html=1;endArrow=open;strokeWidth=1.5;strokeColor=#2563eb;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="290" y="755" as="sourcePoint"/><mxPoint x="100" y="755" as="targetPoint"/></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

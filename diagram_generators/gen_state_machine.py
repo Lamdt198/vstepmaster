@@ -1,0 +1,58 @@
+﻿from .common import save_diagram
+
+def generate():
+    xml = '''        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;Biểu đồ Máy trạng thái: Vòng đời Bài thi VSTEP (Test Lifecycle)&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontColor=#1e293b;" vertex="1" parent="1">
+          <mxGeometry x="350" y="20" width="550" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Initial State -->
+        <mxCell id="st_init" value="" style="ellipse;fillColor=#000000;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="50" y="115" width="28" height="28" as="geometry" />
+        </mxCell>
+        
+        <!-- Row 1: Forward Path -->
+        <mxCell id="st_not_started" value="&lt;b&gt;NOT_STARTED&lt;/b&gt;&#xa;Đề thi đã sẵn sàng&#xa;Chờ thí sinh nhấn bắt đầu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#64748b;fontColor=#1e293b;" vertex="1" parent="1">
+          <mxGeometry x="130" y="95" width="160" height="68" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="st_in_progress" value="&lt;b&gt;IN_PROGRESS&lt;/b&gt;&#xa;Đang làm bài 4 kỹ năng&#xa;Timer đếm ngược chạy 1s&#xa;--&#xa;sub: AUTO_SAVING (LocalStorage)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#3b82f6;strokeWidth=2;fontColor=#1e40af;" vertex="1" parent="1">
+          <mxGeometry x="380" y="85" width="190" height="88" as="geometry" />
+        </mxCell>
+
+        <mxCell id="st_submitted" value="&lt;b&gt;SUBMITTED&lt;/b&gt;&#xa;Khóa đề thi tức thì&#xa;Ngăn chặn thí sinh sửa bài" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef2f2;strokeColor=#ef4444;fontColor=#991b1b;" vertex="1" parent="1">
+          <mxGeometry x="660" y="95" width="160" height="68" as="geometry" />
+        </mxCell>
+
+        <mxCell id="st_obj_scored" value="&lt;b&gt;OBJECTIVE_SCORED&lt;/b&gt;&#xa;Có điểm trắc nghiệm&#xa;(&lt;50ms qua Answer Key)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#10b981;fontColor=#065f46;" vertex="1" parent="1">
+          <mxGeometry x="910" y="95" width="170" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- Row 2: Evaluation & Finalizing -->
+        <mxCell id="st_ai_eval" value="&lt;b&gt;AI_EVALUATING&lt;/b&gt;&#xa;Gemini AI đang chấm&#xa;bài viết theo Rubric CEFR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#a855f7;fontColor=#6b21a8;" vertex="1" parent="1">
+          <mxGeometry x="910" y="270" width="170" height="68" as="geometry" />
+        </mxCell>
+
+        <mxCell id="st_completed" value="&lt;b&gt;COMPLETED&lt;/b&gt;&#xa;Hoàn tất điểm 4 kỹ năng&#xa;Quy đổi B1, B2, C1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;strokeWidth=2;fontStyle=1;fontColor=#14532d;" vertex="1" parent="1">
+          <mxGeometry x="620" y="270" width="180" height="68" as="geometry" />
+        </mxCell>
+
+        <mxCell id="st_archived" value="&lt;b&gt;ARCHIVED&lt;/b&gt;&#xa;Đóng băng lịch sử thi&#xa;Lưu trữ vĩnh viễn CSDL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#475569;fontColor=#1e293b;" vertex="1" parent="1">
+          <mxGeometry x="340" y="270" width="160" height="68" as="geometry" />
+        </mxCell>
+
+        <mxCell id="st_end" value="" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#ff0000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="180" y="290" width="28" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Transitions with White Box Labels -->
+        <mxCell id="t1" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="st_init" target="st_not_started"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="t2" value="1. Bắt đầu thi" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;fontStyle=1;labelBackgroundColor=#ffffff;labelBorderColor=#cbd5e1;spacing=3;" edge="1" parent="1" source="st_not_started" target="st_in_progress"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="t3" value="2. Nộp bài / Hết giờ" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;fontStyle=1;fontColor=#dc2626;labelBackgroundColor=#ffffff;labelBorderColor=#fca5a5;spacing=3;" edge="1" parent="1" source="st_in_progress" target="st_submitted"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="t4" value="3. Chấm trắc nghiệm" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;fontStyle=1;labelBackgroundColor=#ffffff;labelBorderColor=#cbd5e1;spacing=3;" edge="1" parent="1" source="st_submitted" target="st_obj_scored"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="t5" value="4. Gửi bài Viết sang AI" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontColor=#7c3aed;fontStyle=1;labelBackgroundColor=#ffffff;labelBorderColor=#d8b4fe;spacing=3;" edge="1" parent="1" source="st_obj_scored" target="st_ai_eval"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="t6" value="5. AI chấm xong" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;fontStyle=1;fontColor=#16a34a;labelBackgroundColor=#ffffff;labelBorderColor=#86efac;spacing=3;" edge="1" parent="1" source="st_ai_eval" target="st_completed"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="t7" value="6. Rời phòng thi" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;fontStyle=1;labelBackgroundColor=#ffffff;labelBorderColor=#cbd5e1;spacing=3;" edge="1" parent="1" source="st_completed" target="st_archived"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="t8" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="st_archived" target="st_end"><mxGeometry relative="1" as="geometry" /></mxCell>'''
+    save_diagram("04_state_machine_exam.drawio", "04_State_Machine", xml)
+    return xml

@@ -1,0 +1,78 @@
+<mxfile host="app.diagrams.net" modified="2026-09-10T16:00:00.000Z" agent="5.0" version="21.6.8" type="device">
+  <diagram id="Activity_UC07_Custom_Test" name="Activity_UC07_Custom_Test">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;Biểu đồ Hoạt động: Bóc tách Đề thi Tùy biến từ tệp Word / PDF (UC-07)&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#1e293b;" vertex="1" parent="1">
+          <mxGeometry x="250" y="20" width="550" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="start" value="" style="ellipse;fillColor=#000000;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="485" y="65" width="28" height="28" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_upload" value="Người dùng tải lên tệp đề thi (.docx hoặc .pdf) từ máy tính" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="320" y="115" width="360" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dec_ext" value="Kiểm tra định dạng tệp ?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#64748b;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="410" y="185" width="180" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Parsing Adapters -->
+        <mxCell id="act_docx" value="Khởi chạy Mammoth.js Adapter&#xa;Chuyển đổi Word XML sang Clean HTML DOM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="190" y="260" width="260" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="act_pdf" value="Khởi chạy PDF.js Adapter&#xa;Trích xuất luồng Text và tọa độ các khối câu hỏi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#dc2626;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="550" y="260" width="260" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- NLP Heuristic Parsing -->
+        <mxCell id="act_heuristic" value="Bộ phân tích Heuristic Regex &amp;amp; NLP&#xa;Nhận diện: Tiêu đề, Hướng dẫn, Bài đọc, Danh sách câu hỏi (1-40) &amp;amp; Đáp án (A,B,C,D)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#9333ea;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="250" y="335" width="500" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Live Preview & Edit -->
+        <mxCell id="act_preview" value="Hiển thị Giao diện Xem trước đề thi &amp;amp; Cho phép sửa trực tiếp (Live Preview)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#16a34a;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="270" y="410" width="460" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dec_confirm" value="Người dùng xác nhận ?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="485" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="act_edit_manual" value="Chỉnh sửa thủ công câu hỏi / đáp án bị nhận diện thiếu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="640" y="488" width="260" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Save DB -->
+        <mxCell id="act_save_db" value="Đóng gói JSON Schema hợp chuẩn VSTEP&#xa;&amp;amp; Lưu vào CSDL (Bảng EXAMS, SECTIONS, QUESTIONS)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#16a34a;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="315" y="565" width="370" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="act_success" value="Thông báo nhập đề thành công! Bộ đề sẵn sàng để thi thử" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontStyle=1;fontColor=#14532d;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="305" y="635" width="390" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="end" value="" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#ff0000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="486" y="705" width="28" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="ce1" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="start" target="act_upload"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce2" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_upload" target="dec_ext"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce3" value="Tệp .docx" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontColor=#2563eb;fontStyle=1;labelBackgroundColor=#ffffff;spacing=2;" edge="1" parent="1" source="dec_ext" target="act_docx"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce4" value="Tệp .pdf" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontColor=#dc2626;fontStyle=1;labelBackgroundColor=#ffffff;spacing=2;" edge="1" parent="1" source="dec_ext" target="act_pdf"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce5" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_docx" target="act_heuristic"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce6" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_pdf" target="act_heuristic"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce7" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_heuristic" target="act_preview"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce8" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_preview" target="dec_confirm"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce9" value="Cần sửa" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;fontColor=#d97706;fontStyle=1;labelBackgroundColor=#ffffff;spacing=2;" edge="1" parent="1" source="dec_confirm" target="act_edit_manual"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce10" value="Cập nhật" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontColor=#d97706;labelBackgroundColor=#ffffff;spacing=2;" edge="1" parent="1" source="act_edit_manual" target="act_preview"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="920" y="510"/><mxPoint x="920" y="432"/></Array></mxGeometry></mxCell>
+        <mxCell id="ce11" value="Đồng ý lưu" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;fontColor=#16a34a;fontStyle=1;labelBackgroundColor=#ffffff;spacing=2;" edge="1" parent="1" source="dec_confirm" target="act_save_db"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce12" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_save_db" target="act_success"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ce13" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_success" target="end"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

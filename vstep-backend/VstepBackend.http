@@ -1,0 +1,6 @@
+@VstepBackend_HostAddress = http://localhost:5161
+
+GET {{VstepBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

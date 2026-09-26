@@ -1,0 +1,71 @@
+@startuml
+!theme plain
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam roundCorner 8
+
+skinparam activity {
+    BackgroundColor #FFFFFF
+    BorderColor #2563EB
+    BorderThickness 1.5
+    ArrowColor #1E293B
+    FontSize 12
+}
+
+skinparam partition {
+    BackgroundColor #F8FAFC
+    BorderColor #94A3B8
+    BorderThickness 1.2
+    FontSize 12
+    FontStyle bold
+    FontColor #0F172A
+}
+
+skinparam note {
+    BackgroundColor #FEF9C3
+    BorderColor #CA8A04
+    FontSize 10
+}
+
+title Activity Diagram - Nhập đề tùy biến Word/PDF
+start
+partition "Tải file lên" {
+    :Chọn file từ máy tính;
+    note right: Hỗ trợ định dạng .docx hoặc .pdf
+    :Bắt đầu Upload file;
+}
+
+partition "Xử lý file" {
+    if (Định dạng file là gì?) then (.docx)
+        :Sử dụng thư viện Mammoth.js;
+        :Bóc tách nội dung HTML từ file Word;
+    else (.pdf)
+        :Sử dụng thư viện PDF.js;
+        :Bóc tách nội dung text từ file PDF;
+    endif
+    :Phân tích cấu trúc nội dung;
+    fork
+        :Nhận diện câu hỏi;
+    fork again
+        :Nhận diện đáp án;
+    fork again
+        :Nhận diện Audio Link;
+    fork again
+        :Nhận diện Passage;
+    end merge
+}
+
+partition "Kiểm tra và Lưu trữ" {
+    :Hiển thị xem trước kết quả bóc tách;
+    :Người dùng kiểm tra lại thông tin;
+    if (Cần chỉnh sửa?) then (Có)
+        :Cho phép chỉnh sửa thủ công;
+    else (Không)
+    endif
+    :Lưu thành bộ đề mới;
+    note right: Lưu vào Ngân hàng đề thi
+    :Bộ đề sẵn sàng để luyện tập;
+}
+stop
+@enduml

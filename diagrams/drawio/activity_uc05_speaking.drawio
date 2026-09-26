@@ -1,0 +1,86 @@
+<mxfile host="app.diagrams.net" modified="2026-09-10T16:00:00.000Z" agent="5.0" version="21.6.8" type="device">
+  <diagram id="Activity_UC05_Speaking" name="Activity_UC05_Speaking">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;Biểu đồ Hoạt động: Luyện tập Kỹ năng Nói (Speaking) (UC-05)&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#1e293b;" vertex="1" parent="1">
+          <mxGeometry x="250" y="20" width="550" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="start" value="" style="ellipse;fillColor=#000000;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="485" y="65" width="28" height="28" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_choose_part" value="Học viên chọn Part thi Nói&#xa;(Part 1: Tương tác XH | Part 2: Thảo luận giải pháp | Part 3: Phát triển chủ đề)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="290" y="115" width="420" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="act_display_prompt" value="Hiển thị đề bài, câu hỏi định hướng &amp;amp; Dàn ý gợi ý tư duy (Mindmap)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#64748b;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="310" y="185" width="380" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Preparation Timer -->
+        <mxCell id="act_prep_timer" value="Đồng hồ đếm ngược thời gian chuẩn bị (1:00 phút)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="350" y="255" width="300" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Recording Group -->
+        <mxCell id="grp_record" value="Quá trình Ghi âm trực tiếp (Web MediaRecorder API)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff1f2;strokeColor=#f43f5e;fontStyle=1;startSize=26;fontColor=#9f1239;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="180" y="325" width="640" height="205" as="geometry" />
+        </mxCell>
+        <mxCell id="act_start_rec" value="Bấm 'Bắt đầu ghi âm' -&amp;gt; Khởi tạo Audio Stream Micro" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f43f5e;fontStyle=1;fontSize=11;" vertex="1" parent="grp_record">
+          <mxGeometry x="40" y="40" width="280" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="act_recording" value="Đang thu âm: Hiển thị Waveform sóng âm&#xa;&amp;amp; Đếm ngược thời gian nói (1:30 - 2:00 phút)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#ef4444;fontSize=11;" vertex="1" parent="grp_record">
+          <mxGeometry x="350" y="40" width="260" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="act_stop_rec" value="Hết giờ hoặc học viên bấm 'Dừng ghi âm'" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f43f5e;fontStyle=1;fontSize=11;" vertex="1" parent="grp_record">
+          <mxGeometry x="40" y="115" width="280" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="act_audio_blob" value="Đóng Stream &amp;amp; Tạo tệp âm thanh (Audio Blob .webm)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f43f5e;fontSize=11;" vertex="1" parent="grp_record">
+          <mxGeometry x="350" y="115" width="260" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="act_playback" value="Cho phép nghe lại bản ghi âm trước khi quyết định gửi đánh giá" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#64748b;fontSize=11;" vertex="1" parent="grp_record">
+          <mxGeometry x="140" y="165" width="370" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Evaluation Option -->
+        <mxCell id="dec_eval_mode" value="Chọn hình thức chấm ?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f1f5f9;strokeColor=#64748b;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="555" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="act_self_eval" value="Tự đối chiếu với Bảng tiêu chí và Băng ghi âm mẫu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#64748b;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="160" y="635" width="280" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="act_ai_eval" value="Gửi audio sang AI Engine phân tích&#xa;(Phát âm, Độ trôi chảy, Từ vựng, Ngữ pháp)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#9333ea;fontStyle=1;fontSize=11;fontColor=#6b21a8;" vertex="1" parent="1">
+          <mxGeometry x="560" y="635" width="280" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Final Report -->
+        <mxCell id="act_report" value="Hiển thị Báo cáo Đánh giá Kỹ năng Nói &amp;amp; Lưu bản ghi vào CSDL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontStyle=1;fontColor=#14532d;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="305" y="715" width="390" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="end" value="" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#ff0000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="486" y="785" width="28" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="se1" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="start" target="act_choose_part"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se2" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_choose_part" target="act_display_prompt"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se3" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_display_prompt" target="act_prep_timer"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se4" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_prep_timer" target="act_start_rec"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se5" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_start_rec" target="act_recording"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se6" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_recording" target="act_stop_rec"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se7" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_stop_rec" target="act_audio_blob"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se8" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_audio_blob" target="act_playback"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se9" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_playback" target="dec_eval_mode"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se10" value="Tự ôn tập" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontColor=#64748b;labelBackgroundColor=#ffffff;spacing=2;" edge="1" parent="1" source="dec_eval_mode" target="act_self_eval"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se11" value="Chấm AI" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontColor=#9333ea;fontStyle=1;labelBackgroundColor=#ffffff;spacing=2;" edge="1" parent="1" source="dec_eval_mode" target="act_ai_eval"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se12" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_self_eval" target="act_report"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se13" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_ai_eval" target="act_report"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="se14" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_report" target="end"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

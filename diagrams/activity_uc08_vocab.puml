@@ -1,0 +1,69 @@
+@startuml
+!theme plain
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam roundCorner 8
+
+skinparam activity {
+    BackgroundColor #FFFFFF
+    BorderColor #2563EB
+    BorderThickness 1.5
+    ArrowColor #1E293B
+    FontSize 12
+}
+
+skinparam partition {
+    BackgroundColor #F8FAFC
+    BorderColor #94A3B8
+    BorderThickness 1.2
+    FontSize 12
+    FontStyle bold
+    FontColor #0F172A
+}
+
+skinparam note {
+    BackgroundColor #FEF9C3
+    BorderColor #CA8A04
+    FontSize 10
+}
+
+title Activity Diagram - Flashcards & Từ vựng
+start
+partition "Lựa chọn bài học" {
+    :Người dùng truy cập mục Từ vựng;
+    :Chọn bộ từ vựng;
+    note right: Theo chủ đề hoặc cấp độ CEFR
+}
+
+partition "Học với Flashcard" {
+    repeat :Bắt đầu học từ vựng;
+        :Hiển thị Flashcard 3D;
+        :Mặt trước hiển thị từ tiếng Anh;
+        :Người dùng tương tác lật thẻ;
+        :Mặt sau hiển thị chi tiết;
+        note right: Nghĩa, phiên âm IPA,\nví dụ, cấp độ CEFR
+        :Đánh giá mức độ ghi nhớ;
+        if (Mức độ nhớ?) then (Đã nhớ)
+            :Đánh dấu đã thuộc;
+        elseif (Chưa nhớ) then
+            :Đưa vào danh sách cần học lại;
+        else (Cần ôn lại)
+            :Lên lịch ôn tập (Spaced Repetition);
+        endif
+    repeat while (Còn từ chưa học trong bộ?) is (Có)
+}
+
+partition "Thống kê và Kết thúc" {
+    :Hệ thống tổng hợp kết quả học tập;
+    fork
+        :Tính phần trăm (%) từ đã nhớ;
+    fork again
+        :Tính tổng thời gian học;
+    fork again
+        :Lọc danh sách các từ cần ôn tập;
+    end merge
+    :Hiển thị biểu đồ thống kê;
+}
+stop
+@enduml

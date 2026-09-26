@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net" modified="2026-09-10T16:00:00.000Z" agent="5.0" version="21.6.8" type="device">
+  <diagram id="Sequence_UC01_Auth" name="Sequence_UC01_Auth">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;Biểu đồ Tuần tự: Đăng nhập &amp;amp; Xác thực Người dùng (UC-01)&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontColor=#1e293b;" vertex="1" parent="1">
+          <mxGeometry x="250" y="15" width="500" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Lifelines -->
+        <mxCell id="ll_cand" value="Học viên&#xa;(Candidate)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;fillColor=#eff6ff;strokeColor=#2563eb;fontStyle=1;size=40;" vertex="1" parent="1">
+          <mxGeometry x="60" y="60" width="110" height="660" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_ui" value="Giao diện Đăng nhập&#xa;(AuthUI)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;fillColor=#f0f9ff;strokeColor=#0284c7;fontStyle=1;size=40;" vertex="1" parent="1">
+          <mxGeometry x="270" y="60" width="130" height="660" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_service" value="AuthService&#xa;(Application)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;fillColor=#f0fdf4;strokeColor=#16a34a;fontStyle=1;size=40;" vertex="1" parent="1">
+          <mxGeometry x="490" y="60" width="130" height="660" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_db" value="Cơ sở dữ liệu&#xa;(Database)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;fillColor=#fef3c7;strokeColor=#d97706;fontStyle=1;size=40;" vertex="1" parent="1">
+          <mxGeometry x="720" y="60" width="120" height="660" as="geometry" />
+        </mxCell>
+
+        <!-- Messages -->
+        <mxCell id="m1" value="1: submitLogin(email, password)" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;strokeWidth=1.5;strokeColor=#2563eb;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="115" y="130" as="sourcePoint"/><mxPoint x="335" y="130" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m2" value="2: validateInputFormat(email, password)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="335" y="160" as="sourcePoint"/><mxPoint x="335" y="190" as="targetPoint"/><Array as="points"><mxPoint x="375" y="160"/><mxPoint x="375" y="190"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="m3" value="3: login(credentials)" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;strokeWidth=1.5;strokeColor=#16a34a;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="335" y="220" as="sourcePoint"/><mxPoint x="555" y="220" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m4" value="4: findByEmail(email)" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;strokeWidth=1.5;strokeColor=#d97706;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="555" y="255" as="sourcePoint"/><mxPoint x="780" y="255" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m5" value="5: return UserRecord (với Bcrypt Hash)" style="edgeStyle=straightEdgeStyle;dashed=1;html=1;endArrow=open;strokeWidth=1.5;strokeColor=#d97706;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="780" y="290" as="sourcePoint"/><mxPoint x="555" y="290" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Frame alt [Xac thuc thanh cong] -->
+        <mxCell id="f_alt" value="alt [Xác thực thành công (Bcrypt match)]" style="shape=umlFrame;whiteSpace=wrap;html=1;width=250;height=22;fillColor=none;strokeColor=#64748b;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="325" width="820" height="215" as="geometry" />
+        </mxCell>
+        <mxCell id="m6" value="6: verifyBcrypt(password, hash) &amp;amp; generateToken(user)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="555" y="360" as="sourcePoint"/><mxPoint x="555" y="390" as="targetPoint"/><Array as="points"><mxPoint x="595" y="360"/><mxPoint x="595" y="390"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="m7" value="7: return AuthResponseDTO (JWT Token, UserProfile)" style="edgeStyle=straightEdgeStyle;dashed=1;html=1;endArrow=open;strokeWidth=1.5;strokeColor=#16a34a;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="555" y="420" as="sourcePoint"/><mxPoint x="335" y="420" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m8" value="8: saveSession(token) vào LocalStorage" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="335" y="450" as="sourcePoint"/><mxPoint x="335" y="480" as="targetPoint"/><Array as="points"><mxPoint x="375" y="450"/><mxPoint x="375" y="480"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="m9" value="9: redirectToDashboard(role)" style="edgeStyle=straightEdgeStyle;dashed=1;html=1;endArrow=open;strokeWidth=1.5;strokeColor=#2563eb;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="335" y="510" as="sourcePoint"/><mxPoint x="115" y="510" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Frame else [Xac thuc that bai] -->
+        <mxCell id="f_else" value="[else: Mật khẩu sai hoặc không tìm thấy tài khoản]" style="shape=umlFrame;whiteSpace=wrap;html=1;width=290;height=22;fillColor=none;strokeColor=#ef4444;strokeWidth=1;dashed=1;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="545" width="820" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="m10" value="10: 401 Unauthorized (Invalid Credentials)" style="edgeStyle=straightEdgeStyle;dashed=1;html=1;endArrow=open;strokeWidth=1.5;strokeColor=#ef4444;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="555" y="585" as="sourcePoint"/><mxPoint x="335" y="585" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m11" value="11: displayErrorMessage(&quot;Sai email hoặc mật khẩu&quot;)" style="edgeStyle=straightEdgeStyle;dashed=1;html=1;endArrow=open;strokeWidth=1.5;strokeColor=#ef4444;labelBackgroundColor=#ffffff;spacing=2;verticalAlign=bottom;spacingBottom=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="335" y="625" as="sourcePoint"/><mxPoint x="115" y="625" as="targetPoint"/></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

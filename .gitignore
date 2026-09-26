@@ -1,0 +1,10 @@
+node_modules/
+.vscode/
+vstep-app/node_modules/
+vstep-app/dist/
+vstep-backend/bin/
+vstep-backend/obj/
+vstep-backend/.vs/
+vstep-app - Copy/
+~$*
+*.log

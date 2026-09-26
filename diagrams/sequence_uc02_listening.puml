@@ -1,0 +1,89 @@
+@startuml
+title UC02 - Luyện Nghe và Chấm Trắc Nghiệm
+
+!theme plain
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam roundcorner 6
+
+skinparam participant {
+    BorderThickness 1.5
+    FontName Arial
+    FontSize 12
+    FontStyle bold
+}
+
+skinparam actor {
+    BackgroundColor #EFF6FF
+    BorderColor #2563EB
+    BorderThickness 1.5
+    FontName Arial
+    FontSize 12
+    FontStyle bold
+}
+
+skinparam sequence {
+    LifeLineBorderColor #64748B
+    LifeLineBackgroundColor #F8FAFC
+    ArrowColor #1E293B
+    ArrowThickness 1.5
+}
+
+skinparam note {
+    BackgroundColor #FEF9C3
+    BorderColor #CA8A04
+    FontSize 10
+}
+
+autonumber
+
+actor "Học viên (Student)" as Student
+participant "ListeningUI" as ListeningUI #F0F9FF
+participant "AudioPlayer" as AudioPlayer #FAF5FF
+participant "ExamService" as ExamService #F0FDF4
+database "Database" as Database #FEF3C7
+
+Student -> ListeningUI : Chọn đề thi Listening
+activate ListeningUI
+
+ListeningUI -> ExamService : Gọi loadExam()
+activate ExamService
+
+ExamService -> Database : Truy vấn dữ liệu đề thi
+activate Database
+Database --> ExamService : Trả về questions & audio URLs
+deactivate Database
+
+ExamService --> ListeningUI : Trả về exam data
+deactivate ExamService
+
+ListeningUI -> AudioPlayer : Khởi tạo AudioPlayer với URL
+activate AudioPlayer
+AudioPlayer --> ListeningUI : Sẵn sàng phát
+ListeningUI -> AudioPlayer : Bắt đầu phát audio Part 1
+
+loop Lặp cho 35 câu hỏi trắc nghiệm
+    Student -> ListeningUI : Chọn đáp án (A/B/C/D)
+    ListeningUI -> ListeningUI : Lưu tạm đáp án
+end
+
+Student -> ListeningUI : Bấm "Nộp bài"
+ListeningUI -> ExamService : Gọi submitAndGrade(answers)
+activate ExamService
+
+note right of ExamService: Hệ thống so khớp answers với answer key từ Database để tính điểm
+
+ExamService -> ExamService : Tính điểm (so khớp đáp án)
+ExamService -> Database : Lưu trữ kết quả điểm số
+activate Database
+Database --> ExamService : Xác nhận lưu
+deactivate Database
+
+ExamService --> ListeningUI : Trả về kết quả và transcript
+deactivate ExamService
+
+ListeningUI --> Student : Hiển thị điểm số và chi tiết đáp án
+deactivate AudioPlayer
+deactivate ListeningUI
+@enduml

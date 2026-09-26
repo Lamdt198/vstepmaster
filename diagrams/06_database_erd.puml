@@ -1,0 +1,212 @@
+@startuml
+!theme plain
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam roundCorner 6
+skinparam linetype ortho
+
+skinparam entity {
+    BorderThickness 1.5
+    ArrowColor #1E293B
+    FontSize 11
+}
+
+' =====================================================================
+' PHÂN HỆ 1: NGƯỜI DÙNG & HỒ SƠ HỌC TẬP (RBAC & PROFILES)
+' =====================================================================
+entity "ROLES" as roles #EFF6FF {
+    * role_id : VARCHAR(20) [PK]
+    --
+    role_name : VARCHAR(50) [UQ]
+    description : VARCHAR(255)
+}
+
+entity "USERS" as users #EFF6FF {
+    * user_id : VARCHAR(36) [PK]
+    --
+    username : VARCHAR(50) [UQ]
+    password_hash : VARCHAR(255)
+    full_name : VARCHAR(100)
+    email : VARCHAR(100) [UQ]
+    role_id : VARCHAR(20) [FK]
+    is_active : BOOLEAN
+    created_at : TIMESTAMP
+}
+
+entity "USER_PROFILES" as profiles #EFF6FF {
+    * profile_id : VARCHAR(36) [PK]
+    --
+    user_id : VARCHAR(36) [FK, UQ]
+    target_band : VARCHAR(10)
+    current_streak_days : INT
+    total_study_minutes : INT
+    last_active_at : TIMESTAMP
+}
+
+' =====================================================================
+' PHÂN HỆ 2: NGÂN HÀNG HỌC LIỆU & ĐỀ THI (QUESTION BANK)
+' =====================================================================
+entity "EXAMS" as exams #F0FDF4 {
+    * exam_id : VARCHAR(36) [PK]
+    --
+    title : VARCHAR(255)
+    exam_type : VARCHAR(30)
+    duration_minutes : INT
+    total_questions : INT
+    is_published : BOOLEAN
+    created_by : VARCHAR(36) [FK]
+    created_at : TIMESTAMP
+}
+
+entity "SECTIONS" as sections #F0FDF4 {
+    * section_id : VARCHAR(36) [PK]
+    --
+    exam_id : VARCHAR(36) [FK]
+    skill_type : VARCHAR(20)
+    section_order : INT
+    duration_minutes : INT
+    instructions : TEXT
+}
+
+entity "QUESTIONS" as questions #F0FDF4 {
+    * question_id : VARCHAR(36) [PK]
+    --
+    section_id : VARCHAR(36) [FK]
+    passage_text : TEXT
+    audio_url : VARCHAR(255)
+    question_text : TEXT
+    question_type : VARCHAR(30)
+    difficulty_cefr : VARCHAR(5)
+    question_order : INT
+}
+
+entity "QUESTION_OPTIONS" as options #F0FDF4 {
+    * option_id : VARCHAR(36) [PK]
+    --
+    question_id : VARCHAR(36) [FK]
+    option_label : VARCHAR(5)
+    option_text : TEXT
+    is_correct : BOOLEAN
+    explanation : TEXT
+}
+
+entity "QUESTION_TAGS" as tags #F0FDF4 {
+    * tag_id : VARCHAR(36) [PK]
+    --
+    question_id : VARCHAR(36) [FK]
+    tag_name : VARCHAR(50)
+}
+
+' =====================================================================
+' PHÂN HỆ 3: KHẢO THÍ, NỘP BÀI & AI CHẤM ĐIỂM (EXAM & EVALUATION)
+' =====================================================================
+entity "SUBMISSIONS" as submissions #FAF5FF {
+    * submission_id : VARCHAR(36) [PK]
+    --
+    user_id : VARCHAR(36) [FK]
+    exam_id : VARCHAR(36) [FK]
+    start_time : TIMESTAMP
+    submit_time : TIMESTAMP
+    listening_score : DECIMAL(3,1)
+    reading_score : DECIMAL(3,1)
+    writing_score : DECIMAL(3,1)
+    speaking_score : DECIMAL(3,1)
+    final_score : DECIMAL(3,1)
+    cefr_band : VARCHAR(10)
+    status : VARCHAR(20)
+}
+
+entity "SUBMISSION_ANSWERS" as answers #FAF5FF {
+    * answer_id : VARCHAR(36) [PK]
+    --
+    submission_id : VARCHAR(36) [FK]
+    question_id : VARCHAR(36) [FK]
+    selected_option_id : VARCHAR(36) [FK]
+    text_response : TEXT
+    audio_response_url : VARCHAR(255)
+    is_correct : BOOLEAN
+    earned_score : DECIMAL(3,1)
+}
+
+entity "AI_EVALUATION_RESULTS" as ai_eval #FAF5FF {
+    * evaluation_id : VARCHAR(36) [PK]
+    --
+    answer_id : VARCHAR(36) [FK, UQ]
+    task_fulfillment : DECIMAL(3,1)
+    organization : DECIMAL(3,1)
+    lexical_resource : DECIMAL(3,1)
+    grammar_accuracy : DECIMAL(3,1)
+    task_score : DECIMAL(3,1)
+    cefr_level : VARCHAR(10)
+    grammar_errors_json : JSON
+    suggested_revision : TEXT
+}
+
+' =====================================================================
+' PHÂN HỆ 4: TỪ VỰNG & SPACED REPETITION (SM-2 ALGORITHM)
+' =====================================================================
+entity "VOCABULARY" as vocab #FEF3C7 {
+    * vocab_id : VARCHAR(36) [PK]
+    --
+    word : VARCHAR(100) [UQ]
+    phonetic : VARCHAR(100)
+    part_of_speech : VARCHAR(20)
+    cefr_level : VARCHAR(5)
+    definition_vi : TEXT
+    example_en : TEXT
+    topic : VARCHAR(50)
+}
+
+entity "USER_VOCAB_PROGRESS" as vocab_prog #FEF3C7 {
+    * progress_id : VARCHAR(36) [PK]
+    --
+    user_id : VARCHAR(36) [FK]
+    vocab_id : VARCHAR(36) [FK]
+    repetitions : INT
+    ease_factor : DECIMAL(4,2)
+    interval_days : INT
+    next_review_date : DATE
+    is_mastered : BOOLEAN
+}
+
+' =====================================================================
+' PHÂN HỆ 5: BÓC TÁCH ĐỀ THI TỰ ĐỘNG (CUSTOM IMPORT AUDIT)
+' =====================================================================
+entity "CUSTOM_EXAM_IMPORTS" as imports #FFF1F2 {
+    * import_id : VARCHAR(36) [PK]
+    --
+    user_id : VARCHAR(36) [FK]
+    file_name : VARCHAR(255)
+    file_type : VARCHAR(20)
+    file_size_bytes : BIGINT
+    parsed_exam_id : VARCHAR(36) [FK]
+    status : VARCHAR(20)
+    recognized_questions : INT
+}
+
+' =====================================================================
+' CÁC MỐI QUAN HỆ TOÀN VẸN (CARDINALITIES)
+' =====================================================================
+roles ||--o{ users : "1 : N"
+users ||--|| profiles : "1 : 1"
+users ||--o{ exams : "1 : N (Tạo đề)"
+users ||--o{ submissions : "1 : N"
+users ||--o{ vocab_prog : "1 : N"
+users ||--o{ imports : "1 : N"
+
+exams ||--|{ sections : "1 : N"
+sections ||--|{ questions : "1 : N"
+questions ||--o{ options : "1 : N"
+questions ||--o{ tags : "1 : N"
+
+exams ||--o{ submissions : "1 : N"
+submissions ||--|{ answers : "1 : N"
+questions ||--o{ answers : "1 : N"
+options ||--o{ answers : "0..1 : N"
+answers ||--o| ai_eval : "1 : 0..1 (Tự luận)"
+
+vocab ||--o{ vocab_prog : "1 : N"
+exams ||--o| imports : "0..1 : 1"
+
+@enduml

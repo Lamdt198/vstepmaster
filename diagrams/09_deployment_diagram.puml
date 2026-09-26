@@ -1,0 +1,68 @@
+@startuml
+!theme plain
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam roundCorner 8
+
+skinparam node {
+    BackgroundColor #EFF6FF
+    BorderColor #2563EB
+}
+skinparam component {
+    BackgroundColor #F0FDF4
+    BorderColor #166534
+}
+skinparam database {
+    BackgroundColor #FEF3C7
+    BorderColor #B45309
+}
+skinparam cloud {
+    BackgroundColor #F5F3FF
+    BorderColor #5B21B6
+}
+skinparam artifact {
+    BackgroundColor #EDE9FE
+    BorderColor #5B21B6
+}
+skinparam note {
+    BackgroundColor #FEF9C3
+    BorderColor #CA8A04
+}
+
+title Sơ đồ triển khai (Deployment Diagram) - VSTEP Master
+
+node "Node Client (Browser)" as ClientNode {
+    artifact "React 18 SPA" as ReactSPA
+    artifact "HTML5 Audio API" as HTML5Audio
+    artifact "Web MediaRecorder" as WebMedia
+    database "LocalStorage" as ClientStorage
+}
+
+node "Node Web Server" as ServerNode {
+    artifact "Vite Dev Server / Nginx Production" as WebServer
+}
+
+cloud "Node External Cloud" as CloudNode {
+    artifact "Google Gemini AI API" as GeminiAPI
+}
+
+node "Node Database" as DBNode {
+    database "MySQL/PostgreSQL\n3NF Schema (8 tables)" as Database
+}
+
+ClientNode -- ServerNode : HTTPS\n(API & Static Files)
+ServerNode -- CloudNode : REST/JSON (HTTPS)\n(Gửi prompt, nhận kết quả)
+ServerNode -- DBNode : JDBC/ORM\n(CRUD Database)
+
+note top of ClientNode
+  Trình duyệt web của người dùng
+  (Chrome, Firefox, Safari...)
+end note
+
+note bottom of ServerNode
+  Server xử lý logic chính,
+  phục vụ file tĩnh, REST API
+end note
+
+@enduml

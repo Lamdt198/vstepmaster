@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net" modified="2026-09-10T16:00:00.000Z" agent="5.0" version="21.6.8" type="device">
+  <diagram id="Activity_UC08_Vocab" name="Activity_UC08_Vocab">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;Biểu đồ Hoạt động: Học Từ vựng Flashcards &amp;amp; Lặp lại ngắt quãng (UC-08)&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#1e293b;" vertex="1" parent="1">
+          <mxGeometry x="250" y="20" width="550" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="start" value="" style="ellipse;fillColor=#000000;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="485" y="65" width="28" height="28" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_select_deck" value="Học viên chọn bộ từ vựng theo chủ đề hoặc cấp độ CEFR (B1, B2, C1)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#2563eb;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="290" y="115" width="420" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="act_load_queue" value="Hệ thống truy vấn CSDL &amp;amp; Sắp xếp danh sách thẻ theo thuật toán Spaced Repetition" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#64748b;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="270" y="185" width="460" height="45" as="geometry" />
+        </mxCell>
+
+        <!-- Card Review Loop -->
+        <mxCell id="grp_card" value="Vòng lặp Luyện tập Flashcard 3D" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#16a34a;fontStyle=1;startSize=28;align=left;spacingLeft=15;fontColor=#166534;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="150" y="255" width="700" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="act_front" value="Hiển thị Mặt trước Flashcard: Từ tiếng Anh, Từ loại &amp;amp; Nút nghe phát âm" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#16a34a;fontSize=11;" vertex="1" parent="grp_card">
+          <mxGeometry x="150" y="40" width="400" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="act_flip" value="Học viên bấm Lật thẻ (3D Flip Card Animation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#22c55e;fontStyle=1;fontSize=11;" vertex="1" parent="grp_card">
+          <mxGeometry x="210" y="100" width="280" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="act_back" value="Hiển thị Mặt sau: Định nghĩa tiếng Việt, Phiên âm IPA, Ví dụ minh họa &amp;amp; Collocations" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#16a34a;fontSize=11;" vertex="1" parent="grp_card">
+          <mxGeometry x="110" y="160" width="480" height="42" as="geometry" />
+        </mxCell>
+
+        <!-- Evaluation -->
+        <mxCell id="act_rate" value="Học viên đánh giá mức độ nhớ: [Chưa nhớ] - [Khó] - [Tốt] - [Dễ]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="310" y="530" width="380" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="act_sm2" value="Thuật toán SM-2 cập nhật Interval (Khoảng cách ôn) &amp;amp; Ease Factor vào CSDL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="270" y="600" width="460" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dec_more_cards" value="Còn từ cần ôn tập ?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="670" width="160" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Summary -->
+        <mxCell id="act_stats" value="Hiển thị Báo cáo Tổng kết Buổi học: Tỷ lệ nhớ, Thời gian &amp;amp; Danh sách từ cần ôn" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontStyle=1;fontColor=#14532d;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="745" width="460" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="end" value="" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#ff0000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="486" y="815" width="28" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="ve1" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="start" target="act_select_deck"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ve2" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_select_deck" target="act_load_queue"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ve3" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_load_queue" target="act_front"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ve4" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="grp_card" source="act_front" target="act_flip"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ve5" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="grp_card" source="act_flip" target="act_back"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ve6" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_back" target="act_rate"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ve7" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_rate" target="act_sm2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ve8" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_sm2" target="dec_more_cards"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ve9" value="Còn từ" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;fontColor=#16a34a;fontStyle=1;labelBackgroundColor=#ffffff;spacing=2;" edge="1" parent="1" source="dec_more_cards" target="act_front"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="180" y="695"/><mxPoint x="180" y="318"/></Array></mxGeometry></mxCell>
+        <mxCell id="ve10" value="Hoàn thành bộ từ" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;fontColor=#2563eb;fontStyle=1;labelBackgroundColor=#ffffff;spacing=2;" edge="1" parent="1" source="dec_more_cards" target="act_stats"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ve11" style="edgeStyle=straightEdgeStyle;html=1;endArrow=block;" edge="1" parent="1" source="act_stats" target="end"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

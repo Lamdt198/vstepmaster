@@ -1,0 +1,101 @@
+@startuml
+title UC06 - Thi Thử Mock Test 180 Phút
+
+!theme plain
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam roundcorner 6
+
+skinparam participant {
+    BorderThickness 1.5
+    FontName Arial
+    FontSize 12
+    FontStyle bold
+}
+
+skinparam actor {
+    BackgroundColor #EFF6FF
+    BorderColor #2563EB
+    BorderThickness 1.5
+    FontName Arial
+    FontSize 12
+    FontStyle bold
+}
+
+skinparam sequence {
+    LifeLineBorderColor #64748B
+    LifeLineBackgroundColor #F8FAFC
+    ArrowColor #1E293B
+    ArrowThickness 1.5
+}
+
+skinparam note {
+    BackgroundColor #FEF9C3
+    BorderColor #CA8A04
+    FontSize 10
+}
+
+autonumber
+
+actor "Học viên (Student)" as Student
+participant "MockTestUI" as MockTestUI #F0F9FF
+participant "CountdownTimer" as CountdownTimer #FAF5FF
+participant "ExamService" as ExamService #F0FDF4
+participant "AIScoringService" as AIScoringService #F0FDF4
+participant "Gemini AI" as GeminiAI #EDE9FE
+database "Database" as Database #FEF3C7
+
+Student -> MockTestUI : Chọn đề thi thử
+activate MockTestUI
+
+MockTestUI -> ExamService : Gọi loadFullExam()
+activate ExamService
+ExamService --> MockTestUI : Trả về cấu trúc 4 phần (L/R/W/S)
+deactivate ExamService
+
+MockTestUI -> CountdownTimer : Khởi tạo đồng hồ (180:00)
+activate CountdownTimer
+
+loop Trong 180 phút
+    Student -> MockTestUI : Làm bài thi từng phần
+    note right of MockTestUI: Tự động lưu tiến trình làm bài định kỳ
+    MockTestUI -> MockTestUI : Auto-save vào LocalStorage (mỗi 30s)
+end
+
+CountdownTimer --> MockTestUI : Hết thời gian thi
+deactivate CountdownTimer
+
+MockTestUI -> MockTestUI : Tự động lock giao diện & thu bài
+
+par Chấm bài song song
+    MockTestUI -> ExamService : Gửi đáp án trắc nghiệm (L+R)
+    activate ExamService
+    ExamService -> ExamService : Chấm điểm tự động (tức thì)
+    ExamService --> MockTestUI : Trả về điểm L & R
+    deactivate ExamService
+else Chấm bằng AI
+    MockTestUI -> AIScoringService : Gửi bài Writing & Speaking
+    activate AIScoringService
+    AIScoringService -> GeminiAI : Phân tích bài viết & ghi âm
+    activate GeminiAI
+    GeminiAI --> AIScoringService : Kết quả đánh giá
+    deactivate GeminiAI
+    AIScoringService --> MockTestUI : Trả về điểm W & S
+    deactivate AIScoringService
+end
+
+MockTestUI -> ExamService : Gửi yêu cầu tổng hợp kết quả
+activate ExamService
+ExamService -> ExamService : Tổng hợp điểm 4 kỹ năng & Quy đổi (B1/B2/C1)
+ExamService -> Database : Lưu dữ liệu ScoreCard vào Database
+activate Database
+Database --> ExamService : Xác nhận
+deactivate Database
+
+ExamService --> MockTestUI : Trả về ScoreCard hoàn chỉnh
+deactivate ExamService
+
+MockTestUI --> Student : Hiển thị bảng điểm và chứng chỉ CEFR tương đương
+deactivate MockTestUI
+@enduml

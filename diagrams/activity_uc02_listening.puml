@@ -1,0 +1,59 @@
+@startuml
+!theme plain
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam roundCorner 8
+
+skinparam activity {
+    BackgroundColor #FFFFFF
+    BorderColor #2563EB
+    BorderThickness 1.5
+    ArrowColor #1E293B
+    FontSize 12
+}
+
+skinparam partition {
+    BackgroundColor #F8FAFC
+    BorderColor #94A3B8
+    BorderThickness 1.2
+    FontSize 12
+    FontStyle bold
+    FontColor #0F172A
+}
+
+skinparam note {
+    BackgroundColor #FEF9C3
+    BorderColor #CA8A04
+    FontSize 10
+}
+
+title Activity Diagram - Luyện Nghe (Listening)
+start
+partition "Chuẩn bị bài" {
+    :Người dùng chọn bộ đề Listening;
+    :Hệ thống nạp 3 phần của bài thi;
+    note right: Part 1: Hội thoại ngắn\nPart 2: Hội thoại dài\nPart 3: Bài giảng
+}
+
+partition "Làm bài thi" {
+    :Bắt đầu làm bài thi;
+    repeat :Lặp qua từng Part;
+        :Hệ thống phát audio;
+        :Học viên nghe;
+        :Chọn đáp án trắc nghiệm (Multiple Choice);
+        :Tự động lưu tạm đáp án (Auto-save);
+    repeat while (Còn Part tiếp theo?) is (Có)
+    :Người dùng nộp bài;
+}
+
+partition "Chấm điểm và Kết quả" {
+    :Hệ thống chấm tự động;
+    :So khớp đáp án với Answer Key;
+    :Tính tổng số câu đúng (Điểm/35 câu);
+    :Quy đổi sang thang điểm 10 (theo chuẩn VSTEP);
+    :Hiển thị kết quả chi tiết;
+    :Hiển thị transcript của audio;
+}
+stop
+@enduml

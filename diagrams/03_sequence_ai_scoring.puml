@@ -1,0 +1,81 @@
+@startuml
+!theme plain
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam roundcorner 6
+
+skinparam participant {
+    BorderThickness 1.5
+    FontName Arial
+    FontSize 12
+    FontStyle bold
+}
+
+skinparam actor {
+    BackgroundColor #EFF6FF
+    BorderColor #2563EB
+    BorderThickness 1.5
+    FontName Arial
+    FontSize 12
+    FontStyle bold
+}
+
+skinparam sequence {
+    LifeLineBorderColor #64748B
+    LifeLineBackgroundColor #F8FAFC
+    ArrowColor #1E293B
+    ArrowThickness 1.5
+}
+
+skinparam note {
+    BackgroundColor #FEF9C3
+    BorderColor #CA8A04
+    FontSize 10
+}
+
+autonumber
+
+actor Student as "Học viên\n(Candidate)" #EFF6FF
+participant UI as "Giao diện Viết\n(WritingUI)" #F0F9FF
+participant Service as "Dịch vụ Điều phối\n(AIScoringService)" #F0FDF4
+participant Adapter as "Bộ chuyển đổi\n(AIAdapter)" #FAF5FF
+participant AI as "Phân hệ AI Engine\n(Gemini API)" #EDE9FE
+database DB as "Cơ sở dữ liệu\n(Database)" #FEF3C7
+
+Student -> UI : Soạn bài luận, bấm "AI Chấm điểm"
+activate UI
+UI -> UI : Kiểm tra số từ hợp lệ (Word Count >= 30)
+
+UI -> Service : requestEvaluation(payload)
+activate Service
+
+Service -> Adapter : generateEvaluation(prompt, essay)
+activate Adapter
+
+Adapter -> AI : POST /analyze (Payload + VSTEP Rubric)
+activate AI
+note right of AI
+  Đánh giá 4 tiêu chí CEFR:
+  - Task Fulfillment
+  - Organization & Cohesion
+  - Lexical Resource
+  - Grammatical Accuracy
+end note
+AI --> Adapter : Trả về JSON (Điểm số, Bậc CEFR, Lỗi sai, Bài mẫu)
+deactivate AI
+
+Adapter --> Service : Đối tượng AIEvaluationDTO chuẩn hóa
+deactivate Adapter
+
+Service -> DB : saveResult(submissionId, result)
+activate DB
+DB --> Service : Xác nhận lưu bản ghi thành công
+deactivate DB
+
+Service --> UI : Trả về ScoreCardDTO
+deactivate Service
+
+UI --> Student : Hiển thị Thẻ điểm, Lỗi ngữ pháp & Bài mẫu nâng cao
+deactivate UI
+@enduml

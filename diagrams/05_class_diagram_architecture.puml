@@ -1,0 +1,160 @@
+@startuml
+!theme plain
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam classAttributeIconSize 0
+skinparam roundCorner 8
+
+skinparam class {
+    BackgroundColor #FFFFFF
+    BorderColor #2563EB
+    BorderThickness 1.5
+    ArrowColor #1E293B
+    FontSize 11
+}
+
+skinparam interface {
+    BackgroundColor #F5F3FF
+    BorderColor #7C3AED
+    BorderThickness 1.5
+    ArrowColor #7C3AED
+    FontSize 11
+    FontStyle bold
+}
+
+skinparam package {
+    BackgroundColor #F8FAFC
+    BorderColor #64748B
+    FontSize 12
+    FontStyle bold
+    FontColor #0F172A
+}
+
+package "Presentation Layer (Tầng Trình diễn)" {
+    class ExamPage {
+        + state: ExamState
+        + timer: Int
+        + handleAnswerSelect(): void
+        + handleSubmit(): void
+    }
+
+    class WritingPage {
+        + wordCount: Int
+        + isScoring: Boolean
+        + handleAISubmit(): void
+        + renderScoreCard(): void
+    }
+
+    class "ExamTimer (Observer)" as ExamTimer {
+        - listeners: Function[]
+        + subscribe(fn): void
+        + tick(): void
+        + onTimeout(): void
+    }
+}
+
+package "Application Layer (Tầng Ứng dụng & Use Cases)" {
+    class ExamService {
+        - scoringCtx: ScoringContext
+        - storage: LocalStorageAdapter
+        + startSession(examId: String): void
+        + submitExam(subId: String): void
+        + evaluateAI(subId: String): void
+    }
+
+    class "VstepExamBuilder (Builder)" as VstepExamBuilder {
+        - exam: Exam
+        + addListeningSection(duration: Int): this
+        + addReadingSection(duration: Int): this
+        + addWritingSection(duration: Int): this
+        + build(): Exam
+    }
+
+    class ScoringContext {
+        - strategy: IScoringStrategy
+        + setStrategy(strat: IScoringStrategy): void
+        + executeScoring(data: Object): ScoringResult
+    }
+}
+
+package "Domain Layer (Tầng Nghiệp vụ cốt lõi & DIP)" {
+    interface IScoringStrategy <<Strategy>> {
+        + calculateScore(data: Object): ScoringResult
+    }
+
+    class ObjectiveScoringStrategy {
+        + calculateScore(data: Object): ScoringResult
+        - matchAnswerKey(answers: Map, key: Map): Int
+    }
+
+    class AIScoringStrategy {
+        - aiEvaluator: IAIEvaluator
+        + calculateScore(data: Object): ScoringResult
+        - buildPrompt(prompt: String, essay: String): String
+    }
+
+    interface IAIEvaluator <<DIP Gateway>> {
+        + evaluateEssay(prompt: String, essay: String): AIEvaluationDTO
+    }
+
+    class Exam {
+        + id: String
+        + title: String
+        + durationMinutes: Int
+        + examType: String
+    }
+
+    class Submission {
+        + id: String
+        + userId: String
+        + examId: String
+        + objectiveScore: Float
+        + aiScore: Float
+        + finalScore: Float
+        + cefrBand: String
+    }
+
+    class ScoringResult {
+        + score: Float
+        + cefrLevel: String
+        + details: Object
+    }
+}
+
+package "Infrastructure Layer (Tầng Hạ tầng & Adapters)" {
+    class "AIAdapter (Adapter)" as AIAdapter {
+        - endpointUrl: String
+        + evaluateEssay(prompt: String, essay: String): AIEvaluationDTO
+        - transformResponse(rawJson: Object): AIEvaluationDTO
+    }
+
+    class LocalStorageAdapter {
+        + saveTempAnswers(subId: String, data: Object): void
+        + getTempAnswers(subId: String): Object
+    }
+}
+
+' Presentation -> Application
+ExamTimer ..> ExamPage : notifies
+ExamPage ..> ExamService : invokes
+WritingPage ..> ExamService : invokes
+
+' Application internal & to Domain
+ExamService --> ScoringContext : coordinates
+ExamService ..> LocalStorageAdapter : uses
+VstepExamBuilder ..> Exam : creates
+ScoringContext o--> IScoringStrategy : uses
+
+' Strategy Realization
+IScoringStrategy <|.. ObjectiveScoringStrategy : Realization
+IScoringStrategy <|.. AIScoringStrategy : Realization
+
+' DIP Gateway & Adapter
+AIScoringStrategy --> IAIEvaluator : delegates
+IAIEvaluator <|.. AIAdapter : Realization
+
+' Domain relationships
+Submission --> ScoringResult : produces
+
+@enduml

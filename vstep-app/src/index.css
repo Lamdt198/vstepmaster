@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased transition-colors duration-200;
+  }
+  .dark body,
+  .dark {
+    --tw-bg-opacity: 1;
+    --tw-text-opacity: 1;
+  }
+  html.dark body {
+    @apply bg-gray-900 text-gray-100;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors font-medium dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600;
+  }
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6 dark:bg-gray-800 dark:border-gray-700;
+  }
+}
+
+/* ==========================================================================
+   MODERN CUSTOM SCROLLBAR SYSTEM
+   Tùy biến thanh cuộn hiện đại, thanh mảnh, bo tròn viền đồng bộ với VSTEP Master UI
+   ========================================================================== */
+
+/* 1. Global standard for Firefox & modern browsers */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
+}
+
+html.dark * {
+  scrollbar-color: rgba(100, 116, 139, 0.5) transparent;
+}
+
+/* 2. WebKit (Chrome, Edge, Safari, Brave, Opera) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.45);
+  border-radius: 9999px;
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.8);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #3b82f6;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Dark Mode Scrollbars */
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.45);
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.75);
+}
+
+html.dark ::-webkit-scrollbar-thumb:active {
+  background: #60a5fa;
+}
+
+/* 3. Utility Classes */
+/* Hide scrollbar while maintaining scroll functionality */
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Ultra-thin scrollbar for inner panels (transcripts, lists, questions) */
+.scrollbar-thin {
+  scrollbar-width: thin !important;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 5px !important;
+  height: 5px !important;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border-radius: 9999px;
+}
+
+html.dark .scrollbar-thin::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.45) !important;
+  border-radius: 9999px !important;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.7) !important;
+}
+
+/* Slate scrollbar for Dark Navy sections (Admin Sidebar #0F172A, Terminal logs) */
+.scrollbar-slate {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(71, 85, 105, 0.6) transparent !important;
+}
+
+.scrollbar-slate::-webkit-scrollbar {
+  width: 5px !important;
+  height: 5px !important;
+}
+
+.scrollbar-slate::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.scrollbar-slate::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.5) !important;
+  border-radius: 9999px !important;
+}
+
+.scrollbar-slate::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.7) !important;
+}
+
+.scrollbar-slate::-webkit-scrollbar-thumb:active {
+  background: #38bdf8 !important;
+}
+

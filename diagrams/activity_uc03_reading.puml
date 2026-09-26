@@ -1,0 +1,64 @@
+@startuml
+!theme plain
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam roundCorner 8
+
+skinparam activity {
+    BackgroundColor #FFFFFF
+    BorderColor #2563EB
+    BorderThickness 1.5
+    ArrowColor #1E293B
+    FontSize 12
+}
+
+skinparam partition {
+    BackgroundColor #F8FAFC
+    BorderColor #94A3B8
+    BorderThickness 1.2
+    FontSize 12
+    FontStyle bold
+    FontColor #0F172A
+}
+
+skinparam note {
+    BackgroundColor #FEF9C3
+    BorderColor #CA8A04
+    FontSize 10
+}
+
+title Activity Diagram - Luyện Đọc (Reading)
+start
+partition "Chuẩn bị bài" {
+    :Người dùng chọn bộ đề Reading;
+    :Hệ thống nạp 4 passages (đoạn văn);
+}
+
+partition "Làm bài thi" {
+    repeat :Lặp qua từng passage;
+        :Học viên đọc bài;
+        fork
+            :Trả lời 10 câu trắc nghiệm;
+            note right: True/False/NG, Multiple Choice,\nMatching, Fill-in
+        fork again
+            if (Cần tra cứu từ mới?) then (Có)
+                :Bấm vào từ vựng;
+                :Hiển thị Popup tra cứu;
+                note left: Hiển thị nghĩa, phiên âm,\ncấp độ CEFR
+            else (Không)
+            endif
+        end merge
+        :Lưu tạm đáp án;
+    repeat while (Còn passage tiếp theo?) is (Có)
+    :Người dùng nộp bài;
+}
+
+partition "Chấm điểm và Kết quả" {
+    :Hệ thống chấm tự động 40 câu hỏi;
+    :Tính điểm và quy đổi thang điểm 10;
+    :Hiển thị điểm số;
+    :Cung cấp đáp án chi tiết và giải thích;
+}
+stop
+@enduml
