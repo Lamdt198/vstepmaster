@@ -1,10 +1,39 @@
+﻿# Dependencies & Build artifacts
 node_modules/
+dist/
+dist-ssr/
+bin/
+obj/
+.vs/
 .vscode/
-vstep-app/node_modules/
-vstep-app/dist/
-vstep-backend/bin/
-vstep-backend/obj/
-vstep-backend/.vs/
-vstep-app - Copy/
+*.local
+
+# Word documents & reports
+*.docx
+*.doc
 ~$*
+
+# Python scripts & diagram generators (local build tools)
+*.py
+diagram_generators/
+extracted_khung/
+report_sections/
+*.mdj
+*.emf
+*.bat
+
+# Miscellaneous local files
 *.log
+*.tmp
+test_push.log
+test_w.txt
+scratch_test_*
+real_ui_*.png
+informatics_risk_ml/
+viewer-static.min.js
+extracted_tai_lieu_dac_ta.txt
+vstep-app - Copy/
+
+# Keep docs in repository clean
+BAO_CAO_*.md
+schema.sql
