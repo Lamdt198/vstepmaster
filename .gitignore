@@ -37,3 +37,10 @@ vstep-app - Copy/
 # Keep docs in repository clean
 BAO_CAO_*.md
 schema.sql
+
+diagrams/
+capture_real_app_screens.js
+debug_test.js
+export_all_drawio.js
+render_all_23_drawio.js
+render_all_drawio_to_png.js
